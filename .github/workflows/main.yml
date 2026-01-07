@@ -5,23 +5,22 @@ on:
     branches:
       - main
 
+permissions: {}
+
 jobs:
-  identity-check:
+  secret-check:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    env:
+      DEMO_SECRET: ${{ secrets.DEMO_SECRET }}
 
     steps:
-      # This step shows basic identity context the workflow receives.
-      - name: Show GitHub context
+      - name: Show secret availability
         run: |
-          echo "Actor: $GITHUB_ACTOR"
-          echo "Repository: $GITHUB_REPOSITORY"
-          echo "Workflow: $GITHUB_WORKFLOW"
-
-      # This step confirms the workflow has been issued credentials.
-      - name: Show token existence
-        run: |
-          if [ -z ${{ secrets.GITHUB_TOKEN }} ]; then
-            echo "GITHUB_TOKEN is NOT present"
+          if [ -z "$DEMO_SECRET" ]; then
+            echo "Secret is not available"
           else
-            echo "GITHUB_TOKEN is present"
+            echo "Secret is available"
           fi
