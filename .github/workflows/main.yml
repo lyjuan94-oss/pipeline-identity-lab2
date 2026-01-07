@@ -17,6 +17,11 @@ jobs:
       DEMO_SECRET: ${{ secrets.DEMO_SECRET }}
 
     steps:
+      - name: Attempt to print secret
+        run: |
+          echo "Secret value is:"
+          echo "$DEMO_SECRET"
+
       - name: Show secret availability
         run: |
           if [ -z "$DEMO_SECRET" ]; then
