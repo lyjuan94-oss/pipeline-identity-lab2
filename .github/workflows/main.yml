@@ -4,11 +4,14 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 permissions: {}
 
 jobs:
-  secret-check:
+  pr-check:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -19,4 +22,8 @@ jobs:
     steps:
       - name: Validate secret presence
         run: |
-          test -n "$DEMO_SECRET" && echo "Secret injected correctly :D"
+          if [ -z "$DEMO_SECRET" ]; then
+            echo "Secret is NOT available"
+          else
+            echo "Secret is available"
+          fi
