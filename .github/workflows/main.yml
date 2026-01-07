@@ -19,4 +19,4 @@ jobs:
     steps:
       - name: Validate secret presence
         run: |
-          test -n "$DEMO_SECRET" && echo "Secret injected correctly"
+          test -n "$DEMO_SECRET" && echo "Secret injected correctly :D"
