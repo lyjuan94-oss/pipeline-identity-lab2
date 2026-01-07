@@ -17,19 +17,6 @@ jobs:
       DEMO_SECRET: ${{ secrets.DEMO_SECRET }}
 
     steps:
-      - name: Show secret availability
+      - name: Validate secret presence
         run: |
-          if [ -z "$DEMO_SECRET" ]; then
-            echo "Secret is not available"
-          else
-            echo "Secret is available"
-          fi
-
-      - name: Attempt to print secret
-        run: |
-          echo "Secret value is:"
-          echo "$DEMO_SECRET"
-
-      - name: Encode secret
-        run: |
-          echo "$DEMO_SECRET" | base64
+          test -n "$DEMO_SECRET" && echo "Secret injected correctly"
