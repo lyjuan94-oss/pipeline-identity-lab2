@@ -1,0 +1,27 @@
+name: Pipeline Identity Demo
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  identity-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      # This step shows basic identity context the workflow receives.
+      - name: Show GitHub context
+        run: |
+          echo "Actor: $GITHUB_ACTOR"
+          echo "Repository: $GITHUB_REPOSITORY"
+          echo "Workflow: $GITHUB_WORKFLOW"
+
+      # This step confirms the workflow has been issued credentials.
+      - name: Show token existence
+        run: |
+          if [ -z ${{ secrets.GITHUB_TOKEN }} ]; then
+            echo "GITHUB_TOKEN is NOT present"
+          else
+            echo "GITHUB_TOKEN is present"
+          fi
